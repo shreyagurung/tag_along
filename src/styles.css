@@ -1,0 +1,184 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  /* Tag Along palette */
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-terracotta: var(--terracotta);
+  --color-mustard: var(--mustard);
+  --color-forest: var(--forest);
+  --color-peach: var(--peach);
+  --color-teal: var(--teal);
+  --color-sage: var(--sage);
+  --color-coral: var(--coral);
+  --color-burnt: var(--burnt);
+  --color-blush: var(--blush);
+  --color-butter: var(--butter);
+  --color-mint: var(--mint);
+  --color-seafoam: var(--seafoam);
+  --color-lavender: var(--lavender);
+  --color-wood: var(--wood);
+
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-hand: 'Shadows Into Light Two', cursive;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Drawn from the interior: blush walls, coral trim, butter yellow,
+     seafoam, mint, lavender and warm wood. */
+  --paper: #fbf5e8;
+  --ink: #2d2a26;
+  --terracotta: #d94f3d;   /* coral red accent */
+  --mustard: #f2c94c;      /* butter yellow */
+  --forest: #3f6f65;       /* deep seafoam */
+  --peach: #f5cfc9;        /* blush pink */
+  --teal: #6ea89e;         /* seafoam mid */
+  --sage: #cfe4d1;         /* soft mint */
+  --coral: #ec8672;
+  --burnt: #b0704a;        /* warm wood */
+  --blush: #f5cfc9;
+  --butter: #f2c94c;
+  --mint: #cfe4d1;
+  --seafoam: #a9d3c8;
+  --lavender: #d9cce6;
+  --wood: #b0704a;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--terracotta);
+  --primary-foreground: var(--paper);
+  --secondary: var(--peach);
+  --secondary-foreground: var(--ink);
+  --muted: #f0e8d6;
+  --muted-foreground: #6b6660;
+  --accent: var(--mustard);
+  --accent-foreground: var(--ink);
+  --destructive: #b3341f;
+  --destructive-foreground: var(--paper);
+  --border: rgba(45, 42, 38, 0.1);
+  --input: rgba(45, 42, 38, 0.15);
+  --ring: var(--terracotta);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@utility animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+@utility animate-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+@utility tape-corner {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 60px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+}
+
+/* ---------------------------------------------------------------
+   Mobile adaptation only. Desktop (>=641px) is untouched.
+   Scales editorial display type and section rhythm down so the
+   existing layouts fit small screens without redesigning them.
+--------------------------------------------------------------- */
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .text-9xl { font-size: 3.75rem; line-height: 1; }
+  .text-8xl { font-size: 3.25rem; line-height: 1; }
+  .text-7xl { font-size: 3rem; line-height: 1.02; }
+  .text-6xl { font-size: 2.625rem; line-height: 1.05; }
+  .text-5xl { font-size: 2.125rem; line-height: 1.1; }
+  .text-4xl { font-size: 1.875rem; line-height: 1.15; }
+  .text-3xl { font-size: 1.5rem; line-height: 1.2; }
+
+  .py-24 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .py-20 { padding-top: 3rem; padding-bottom: 3rem; }
+  .pt-24 { padding-top: 3.5rem; }
+  .pb-24 { padding-bottom: 3.5rem; }
+  .pt-20 { padding-top: 3rem; }
+  .pb-28 { padding-bottom: 4rem; }
+  .mb-20 { margin-bottom: 3rem; }
+  .mb-16 { margin-bottom: 2.5rem; }
+  .gap-16 { gap: 2.5rem; }
+  .gap-12 { gap: 2rem; }
+  .p-12 { padding: 1.75rem; }
+  .p-8 { padding: 1.5rem; }
+
+  /* keep long editorial words from pushing the viewport */
+  h1, h2, h3 { overflow-wrap: break-word; }
+}
